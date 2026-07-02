@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('alerta', function (Blueprint $table) {
             $table->id();
+            $table->string('tipo_alerta',20);
+            $table->dateTime('data_alerta');
+            $table->tinyInteger('visualizado');
+            $table->foreignId('lote_id');
             $table->timestamps();
         });
     }

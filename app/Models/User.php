@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    protected $table = "usuarios";
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 

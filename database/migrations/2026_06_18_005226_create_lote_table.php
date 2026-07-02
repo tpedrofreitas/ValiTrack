@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('lote', function (Blueprint $table) {
             $table->id();
+            $table->string('numero_lote',50);
+            $table->integer('quantidade');
+            $table->date('data_fabricação');
+            $table->date('data_validade');
+            $table->date('data_entrada');
+            $table->string('status',45);
+            $table->foreignId('produto_id');
             $table->timestamps();
         });
     }
