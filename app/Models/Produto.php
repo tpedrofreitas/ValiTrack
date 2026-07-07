@@ -16,6 +16,7 @@ class Produto extends Model
         'codigo_barras',
         'fabricante',
         'unidade_medida',
+        'imagem',
         'categoria_id',
     ];
 

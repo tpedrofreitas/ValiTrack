@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                       
+                        <img src="{{ asset('img/ChatGPT Image 6 de jul. de 2026, 20_01_09.png') }}" alt="Logo" class="block h-14 w-auto fill-current text-gray-800" >
                     </a>
                 </div>
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
-      protected $table = 'categoria';
+      protected $table = 'categorias';
 
     protected $fillable = [
         'nome',
@@ -21,6 +21,6 @@ class Categoria extends Model
      */
     public function produtos()
     {
-        return $this->belongsTo(Produto::class);
+        return $this->hasMany(Produto::class);
     }
 }
