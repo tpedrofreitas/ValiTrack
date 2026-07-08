@@ -13,13 +13,18 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        return view('categorias.index', compact('categorias'));
+        return view('categorias.index', [
+        'categorias'=>$categorias
+        ]);
     }
 
     // Abre a tela de cadastro
     public function create()
     {
-        return view('categorias.cadastrar');
+        return view('categorias.cadastrar',[
+        'categoria' => new Categoria()
+        ]);
+             
     }
 
     // Salva uma categoria
@@ -43,18 +48,38 @@ class CategoriaController extends Controller
     // Abre a tela de edição
     public function edit($id)
     {
-        //
+        return view('categorias.editar',[
+        'categoria' => Categoria::findOrFail($id)
+        ]);
     }
 
     // Atualiza uma categoria
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+             'nome' => 'required|max:100',
+            'descricao' => 'required|max:255'
+        ]);
+
+    $categoria = Categoria::findOrFail($id);
+
+    $categoria->nome = $request->nome;
+    $categoria->descricao = $request->descricao;
+
+    $categoria->save();
+
+    return redirect()
+            ->route('categoria.index')
+            ->with('success', 'Categoria cadastrada com sucesso!');
     }
+    
 
     // Exclui uma categoria
     public function destroy($id)
     {
-        //
+        $categorias = Categoria::findOrFail($id);
+        $categorias->delete();
+        return redirect()->route('categoria.index');  
+
     }
 }
