@@ -69,17 +69,19 @@
                                 </td>
 
                                 <td class="border p-2">
-
-                                    <a href="{{ route ('categoria.editar',$c->id)}}" class="bg-gray-300 px-3 py-2 rounded">Editar</a>
+                                    <div class="flex">
+                                        <a href="{{ route ('categoria.editar',$c->id)}}" class="bg-gray-300 px-3 py-2 rounded ">Editar</a>
  
                                         <form action="{{ route('categoria.excluir', $c->id) }}" method="post">
                                             @method('delete')
                                             @csrf
  
                                             <button type="submit"
-                                                class="bg-red-300 px-3 py-2 rounded ml-2" onclick="return confirm('Deseja realmente excluir o registro?')">Excluir</button>
+                                                class="bg-red-300 px-3 py-2 rounded ml-2 flex" onclick="return confirm('Deseja realmente excluir o registro?')">Excluir</button>
  
                                         </form>
+                                    </div>
+                                    
  
 
                                 </td>
