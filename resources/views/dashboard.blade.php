@@ -43,7 +43,8 @@
                     </a>
 
                     <!-- Fornecedores -->
-                    <div class="bg-gray-200 rounded-xl p-6 text-center">
+                    <a href="{{ route('fornecedor.index') }}"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl p-6 text-center shadow-lg transition">
 
                         <div class="text-5xl mb-4">🚚</div>
 
@@ -51,11 +52,7 @@
                             Fornecedores
                         </h2>
 
-                        <p class="text-sm mt-2">
-                            Em desenvolvimento
-                        </p>
-
-                    </div>
+                    </a>
 
                     <!-- Entradas -->
                     <div class="bg-gray-200 rounded-xl p-6 text-center">

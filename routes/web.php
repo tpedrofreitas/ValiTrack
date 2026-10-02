@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,28 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/dashboard/produtos/excluir/{id}', [ProdutoController::class, 'destroy'])
         ->name('produto.excluir');
+
+    // ==========================
+    // FORNECEDORES
+    // ==========================
+
+    Route::get('/dashboard/fornecedores', [FornecedorController::class, 'index'])
+        ->name('fornecedor.index');
+
+    Route::get('/dashboard/fornecedores/cadastrar', [FornecedorController::class, 'create'])
+        ->name('fornecedor.cadastrar');
+
+    Route::post('/dashboard/fornecedores/salvar', [FornecedorController::class, 'store'])
+        ->name('fornecedor.salvar');
+
+    Route::get('/dashboard/fornecedores/editar/{id}', [FornecedorController::class, 'edit'])
+        ->name('fornecedor.editar');
+
+    Route::put('/dashboard/fornecedores/atualizar/{id}', [FornecedorController::class, 'update'])
+        ->name('fornecedor.atualizar');
+
+    Route::delete('/dashboard/fornecedores/excluir/{id}', [FornecedorController::class, 'destroy'])
+        ->name('fornecedor.excluir');
 
     // ==========================
     // PERFIL

@@ -1,26 +1,37 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow-sm">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex items-center gap-6">
                 <!-- Logo -->
-                <nav>
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('dashboard') }}">
+                        <img src="{{ asset('img/ChatGPT Image 6 de jul. de 2026, 20_01_09.png') }}" alt="Logo"
+                            class="block h-14 w-auto fill-current text-gray-800">
+                    </a>
+                </div>
 
-                    <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
-                        <a href="{{ route('dashboard') }}">
-                            <img src="{{ asset('img/ChatGPT Image 6 de jul. de 2026, 20_01_09.png') }}" alt="Logo"
-                                class="block h-14 w-auto fill-current text-gray-800">
-                        </a>
-                    </div>
-
-                    <!-- Menu -->
-                    
-
-                </nav>
-
-                <!-- Navigation Links -->
-                
+                <!-- Menu principal -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="{{ route('categoria.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Categorias
+                    </a>
+                    <a href="{{ route('produto.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Produtos
+                    </a>
+                    <a href="{{ route('fornecedor.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Fornecedores
+                    </a>
+                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Entradas
+                    </a>
+                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Saídas
+                    </a>
+                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Relatórios
+                    </a>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -79,10 +90,25 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+        <div class="pt-2 pb-3 space-y-1 border-t border-gray-200">
+            <a href="{{ route('categoria.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Categorias
+            </a>
+            <a href="{{ route('produto.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Produtos
+            </a>
+            <a href="{{ route('fornecedor.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Fornecedores
+            </a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Entradas
+            </a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Saídas
+            </a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Relatórios
+            </a>
         </div>
 
         <!-- Responsive Settings Options -->
