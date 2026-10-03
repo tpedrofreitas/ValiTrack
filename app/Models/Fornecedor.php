@@ -19,4 +19,9 @@ class Fornecedor extends Model
         'cnpj',
         'endereco',
     ];
+
+    public function lotes()
+    {
+        return $this->hasMany(Lote::class);
+    }
 }

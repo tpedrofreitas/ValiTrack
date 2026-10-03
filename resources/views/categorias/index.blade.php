@@ -10,6 +10,16 @@
 
 @endif
 
+@if(session('error'))
+
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+
+        {{ session('error') }}
+
+    </div>
+
+@endif
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800">
             Categorias

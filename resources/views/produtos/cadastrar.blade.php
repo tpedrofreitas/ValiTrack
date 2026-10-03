@@ -65,6 +65,19 @@
                     </div>
 
                     <div class="mb-4">
+                        <label for="imagem" class="block font-medium">
+                            Imagem
+                        </label>
+
+                        <input type="text"
+                               name="imagem"
+                               id="imagem"
+                               class="w-full border rounded px-3 py-2"
+                               value="{{ old('imagem') }}"
+                               placeholder="Ex: produtos/laravel12.jpg">
+                    </div>
+
+                    <div class="mb-4">
                         <label for="categoria_id" class="block font-medium">
                             Categoria
                         </label>
@@ -87,12 +100,25 @@
 
                     </div>
 
+                    <div class="mb-4">
+                        <label for="estoque_minimo" class="block font-medium">
+                            Estoque Mínimo
+                        </label>
+
+                        <input type="number"
+                               name="estoque_minimo"
+                               id="estoque_minimo"
+                               class="w-full border rounded px-3 py-2"
+                               value="{{ old('estoque_minimo', 0) }}"
+                               min="0">
+                    </div>
+
                     <div class="flex gap-2">
 
                         <button type="submit"
                                 class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
 
-                            Salvar
+                            Salvar Produto
 
                         </button>
 

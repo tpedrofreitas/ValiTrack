@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\LoteController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\SaidaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -81,6 +85,64 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/dashboard/fornecedores/excluir/{id}', [FornecedorController::class, 'destroy'])
         ->name('fornecedor.excluir');
+
+    // ==========================
+    // ENTRADAS / LOTES
+    // ==========================
+
+    Route::get('/dashboard/entradas', [LoteController::class, 'index'])
+        ->name('lote.index');
+
+    Route::get('/dashboard/entradas/cadastrar', [LoteController::class, 'create'])
+        ->name('lote.cadastrar');
+
+    Route::post('/dashboard/entradas/salvar', [LoteController::class, 'store'])
+        ->name('lote.salvar');
+
+    Route::get('/dashboard/entradas/editar/{id}', [LoteController::class, 'edit'])
+        ->name('lote.editar');
+
+    Route::put('/dashboard/entradas/atualizar/{id}', [LoteController::class, 'update'])
+        ->name('lote.atualizar');
+
+    Route::delete('/dashboard/entradas/excluir/{id}', [LoteController::class, 'destroy'])
+        ->name('lote.excluir');
+
+    // ==========================
+    // SAÍDAS
+    // ==========================
+
+    Route::get('/dashboard/saidas', [SaidaController::class, 'index'])
+        ->name('saida.index');
+
+    Route::get('/dashboard/saidas/cadastrar', [SaidaController::class, 'create'])
+        ->name('saida.cadastrar');
+
+    Route::post('/dashboard/saidas/salvar', [SaidaController::class, 'store'])
+        ->name('saida.salvar');
+
+    Route::get('/dashboard/saidas/editar/{id}', [SaidaController::class, 'edit'])
+        ->name('saida.editar');
+
+    Route::put('/dashboard/saidas/atualizar/{id}', [SaidaController::class, 'update'])
+        ->name('saida.atualizar');
+
+    Route::delete('/dashboard/saidas/excluir/{id}', [SaidaController::class, 'destroy'])
+        ->name('saida.excluir');
+
+    // ==========================
+    // ESTOQUE
+    // ==========================
+
+    Route::get('/dashboard/estoque', [EstoqueController::class, 'index'])
+        ->name('estoque.index');
+
+    // ==========================
+    // RELATÓRIOS
+    // ==========================
+
+    Route::get('/dashboard/relatorios', [RelatorioController::class, 'index'])
+        ->name('relatorio.index');
 
     // ==========================
     // PERFIL

@@ -18,6 +18,7 @@ class Produto extends Model
         'unidade_medida',
         'imagem',
         'categoria_id',
+        'estoque_minimo',
     ];
 
     /**
@@ -25,6 +26,38 @@ class Produto extends Model
      */
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Categoria::class)->withDefault([
+            'nome' => 'Sem categoria',
+        ]);
+    }
+
+    /**
+     * Relacionamento com os lotes do produto
+     */
+    public function lotes()
+    {
+        return $this->hasMany(Lote::class);
+    }
+
+    /**
+     * Relacionamento com as saídas do produto
+     */
+    public function saidas()
+    {
+        return $this->hasMany(Saida::class);
+    }
+
+    public function estoqueDisponivel(): int
+    {
+        return (int) $this->lotes()->get()->sum(function ($lote) {
+            return $lote->saldoDisponivel();
+        });
+    }
+
+    public function abaixoDoMinimo(): bool
+    {
+        $minimo = (int) ($this->estoque_minimo ?? 0);
+
+        return $this->estoqueDisponivel() < $minimo;
     }
 }

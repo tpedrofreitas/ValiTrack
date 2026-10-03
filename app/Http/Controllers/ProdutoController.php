@@ -14,10 +14,18 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-         $produtos = Produto::all();
+        $produtos = Produto::with('categoria')->get();
+
+        if (Categoria::count() === 0) {
+            return view('produtos.index', [
+                'produtos' => $produtos,
+                'semCategoria' => true,
+            ]);
+        }
 
         return view('produtos.index', [
-        'produtos'=>$produtos
+            'produtos' => $produtos,
+            'semCategoria' => false,
         ]);
     }
 
@@ -26,11 +34,16 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-          $categorias = Categoria::all();
+        $categorias = Categoria::all();
 
-         return view('produtos.cadastrar', [
-        'categorias' => $categorias
-    ]);
+        if ($categorias->isEmpty()) {
+            return redirect()->route('categoria.cadastrar')
+                ->with('warning', 'Cadastre uma categoria antes de criar um produto.');
+        }
+
+        return view('produtos.cadastrar', [
+            'categorias' => $categorias,
+        ]);
     }
 
     /**
@@ -38,24 +51,33 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-        'nome' => 'required|max:150',
-        'codigo_barras' => 'required|max:50',
-        'fabricante' => 'required|max:100',
-        'unidade_medida' => 'required|max:20',
-        'categoria_id' => 'required|exists:categorias,id',
-    ]);
+        $request->validate([
+            'nome' => 'required|max:150',
+            'codigo_barras' => 'required|max:50',
+            'fabricante' => 'required|max:100',
+            'unidade_medida' => 'required|max:20',
+            'imagem' => 'nullable|string|max:255',
+            'categoria_id' => 'nullable|exists:categorias,id',
+            'estoque_minimo' => 'nullable|integer|min:0',
+        ]);
 
-    Produto::create([
-        'nome' => $request->nome,
-        'codigo_barras' => $request->codigo_barras,
-        'fabricante' => $request->fabricante,
-        'unidade_medida' => $request->unidade_medida,
-        'categoria_id' => $request->categoria_id,
-    ]);
+        if (empty($request->categoria_id)) {
+            return redirect()->route('categoria.cadastrar')
+                ->with('warning', 'Selecione ou cadastre uma categoria antes de salvar o produto.');
+        }
 
-    return redirect()->route('produto.index')
-                     ->with('success', 'Produto cadastrado com sucesso!');
+        Produto::create([
+            'nome' => $request->nome,
+            'codigo_barras' => $request->codigo_barras,
+            'fabricante' => $request->fabricante,
+            'unidade_medida' => $request->unidade_medida,
+            'imagem' => $request->imagem,
+            'categoria_id' => $request->categoria_id,
+            'estoque_minimo' => $request->estoque_minimo ?? 0,
+        ]);
+
+        return redirect()->route('produto.index')
+            ->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
@@ -71,14 +93,18 @@ class ProdutoController extends Controller
      */
     public function edit(string $id)
     {
-         $produto = Produto::findOrFail($id);
+        $produto = Produto::findOrFail($id);
+        $categorias = Categoria::all();
 
-    $categorias = Categoria::all();
+        if ($categorias->isEmpty()) {
+            return redirect()->route('categoria.cadastrar')
+                ->with('warning', 'Cadastre uma categoria antes de editar este produto.');
+        }
 
-    return view('produtos.editar', [
-        'produto' => $produto,
-        'categorias' => $categorias
-    ]);
+        return view('produtos.editar', [
+            'produto' => $produto,
+            'categorias' => $categorias,
+        ]);
     }
 
     /**
@@ -86,26 +112,35 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
-        'nome' => 'required|max:150',
-        'codigo_barras' => 'required|max:50',
-        'fabricante' => 'required|max:100',
-        'unidade_medida' => 'required|max:20',
-        'categoria_id' => 'required|exists:categorias,id',
-    ]);
+        $request->validate([
+            'nome' => 'required|max:150',
+            'codigo_barras' => 'required|max:50',
+            'fabricante' => 'required|max:100',
+            'unidade_medida' => 'required|max:20',
+            'imagem' => 'nullable|string|max:255',
+            'categoria_id' => 'nullable|exists:categorias,id',
+            'estoque_minimo' => 'nullable|integer|min:0',
+        ]);
 
-    $produto = Produto::findOrFail($id);
+        if (empty($request->categoria_id)) {
+            return redirect()->route('produto.index')
+                ->with('warning', 'Selecione uma categoria antes de atualizar o produto.');
+        }
 
-    $produto->update([
-        'nome' => $request->nome,
-        'codigo_barras' => $request->codigo_barras,
-        'fabricante' => $request->fabricante,
-        'unidade_medida' => $request->unidade_medida,
-        'categoria_id' => $request->categoria_id,
-    ]);
+        $produto = Produto::findOrFail($id);
 
-    return redirect()->route('produto.index')
-                     ->with('success', 'Produto atualizado com sucesso!');
+        $produto->update([
+            'nome' => $request->nome,
+            'codigo_barras' => $request->codigo_barras,
+            'fabricante' => $request->fabricante,
+            'unidade_medida' => $request->unidade_medida,
+            'imagem' => $request->imagem,
+            'categoria_id' => $request->categoria_id,
+            'estoque_minimo' => $request->estoque_minimo ?? 0,
+        ]);
+
+        return redirect()->route('produto.index')
+            ->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**
@@ -113,11 +148,10 @@ class ProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-         $produto = Produto::findOrFail($id);
+        $produto = Produto::findOrFail($id);
+        $produto->delete();
 
-    $produto->delete();
-
-    return redirect()->route('produto.index')
-                     ->with('success', 'Produto excluído com sucesso!');
+        return redirect()->route('produto.index')
+            ->with('success', 'Produto excluído com sucesso!');
     }
 }

@@ -1,3 +1,7 @@
+@php
+    $totalCategorias = \App\Models\Categoria::count();
+@endphp
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow-sm">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,19 +20,28 @@
                     <a href="{{ route('categoria.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
                         Categorias
                     </a>
-                    <a href="{{ route('produto.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
-                        Produtos
-                    </a>
+                    @if($totalCategorias > 0)
+                        <a href="{{ route('produto.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                            Produtos
+                        </a>
+                    @else
+                        <a href="{{ route('categoria.cadastrar') }}" class="text-sm font-medium text-gray-400 hover:text-gray-600 transition opacity-70">
+                            Produtos
+                        </a>
+                    @endif
                     <a href="{{ route('fornecedor.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
                         Fornecedores
                     </a>
-                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                    <a href="{{ route('lote.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
                         Entradas
                     </a>
-                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                    <a href="{{ route('saida.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
                         Saídas
                     </a>
-                    <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                    <a href="{{ route('estoque.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+                        Estoque
+                    </a>
+                    <a href="{{ route('relatorio.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
                         Relatórios
                     </a>
                 </div>
@@ -94,19 +107,28 @@
             <a href="{{ route('categoria.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                 Categorias
             </a>
-            <a href="{{ route('produto.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
-                Produtos
-            </a>
+            @if($totalCategorias > 0)
+                <a href="{{ route('produto.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                    Produtos
+                </a>
+            @else
+                <a href="{{ route('categoria.cadastrar') }}" class="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-100">
+                    Produtos
+                </a>
+            @endif
             <a href="{{ route('fornecedor.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                 Fornecedores
             </a>
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+            <a href="{{ route('lote.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                 Entradas
             </a>
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+            <a href="{{ route('saida.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                 Saídas
             </a>
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+            <a href="{{ route('estoque.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
+                Estoque
+            </a>
+            <a href="{{ route('relatorio.index') }}" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">
                 Relatórios
             </a>
         </div>

@@ -89,6 +89,19 @@
 
                     </div>
 
+                    <div class="mb-4">
+                        <label for="estoque_minimo" class="block font-medium">
+                            Estoque Mínimo
+                        </label>
+
+                        <input type="number"
+                               name="estoque_minimo"
+                               id="estoque_minimo"
+                               class="w-full border rounded px-3 py-2"
+                               value="{{ old('estoque_minimo', $produto->estoque_minimo ?? 0) }}"
+                               min="0">
+                    </div>
+
                     <div class="flex gap-2">
 
                         <button type="submit"
