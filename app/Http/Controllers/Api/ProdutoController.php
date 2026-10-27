@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Produto;
 use App\Http\Requests\Api\ProdutoRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -49,8 +50,16 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         $produto = Produto::findOrFail($id);
-        $produto->delete();
 
-        return response()->json(null, 204);
+        DB::transaction(function () use ($produto) {
+            foreach ($produto->lotes as $lote) {
+                $lote->saidas()->delete();
+                $lote->delete();
+            }
+
+            $produto->delete();
+        });
+
+        return response()->noContent();
     }
 }
