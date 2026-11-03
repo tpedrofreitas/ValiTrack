@@ -18,197 +18,103 @@
 @endphp
 
 <x-app-layout>
+    <div class="py-8 lg:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="space-y-8">
 
-    <div class="py-10">
-
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-            <div class="bg-white shadow-lg rounded-xl p-8">
-
-                <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">
-                    Sistema de Controle de Estoque
-                </h1>
-
-                <p class="text-center text-gray-500 mb-8">
-                    Bem-vindo, <strong>{{ Auth::user()->name }}</strong>.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-blue-100 rounded-xl p-5">
-                        <div class="text-sm text-blue-700">Total de produtos</div>
-                        <div class="text-3xl font-bold text-blue-900 mt-2">{{ $produtos }}</div>
-                    </div>
-
-                    <div class="bg-green-100 rounded-xl p-5">
-                        <div class="text-sm text-green-700">Total em estoque</div>
-                        <div class="text-3xl font-bold text-green-900 mt-2">{{ $estoqueTotal }}</div>
-                    </div>
-
-                    <div class="bg-yellow-100 rounded-xl p-5">
-                        <div class="text-sm text-yellow-700">Próximos do vencimento</div>
-                        <div class="text-3xl font-bold text-yellow-900 mt-2">{{ $proximos }}</div>
-                    </div>
-
-                    <div class="bg-red-100 rounded-xl p-5">
-                        <div class="text-sm text-red-700">Vencidos</div>
-                        <div class="text-3xl font-bold text-red-900 mt-2">{{ $vencidos }}</div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Categorias -->
-                    <a href="{{ route('categoria.index') }}"
-                        class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📁</div>
-
-                        <h2 class="text-xl font-bold">
-                            Categorias
-                        </h2>
-
-                    </a>
-
-                    <!-- Produtos -->
-                    <a href="{{ route('produto.index') }}"
-                        class="bg-green-600 hover:bg-green-700 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📦</div>
-
-                        <h2 class="text-xl font-bold">
-                            Produtos
-                        </h2>
-
-                    </a>
-
-                    <!-- Fornecedores -->
-                    <a href="{{ route('fornecedor.index') }}"
-                        class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">🚚</div>
-
-                        <h2 class="text-xl font-bold">
-                            Fornecedores
-                        </h2>
-
-                    </a>
-
-                    <!-- Entradas -->
-                    <a href="{{ route('lote.index') }}"
-                        class="bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📥</div>
-
-                        <h2 class="text-xl font-bold">
-                            Entradas
-                        </h2>
-
-                    </a>
-
-                    <!-- Saídas -->
-                    <a href="{{ route('saida.index') }}"
-                        class="bg-red-500 hover:bg-red-600 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📤</div>
-
-                        <h2 class="text-xl font-bold">
-                            Saídas
-                        </h2>
-
-                    </a>
-
-                    <!-- Relatórios -->
-                    <a href="{{ route('relatorio.index') }}"
-                        class="bg-gray-400 hover:bg-gray-500 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📊</div>
-
-                        <h2 class="text-xl font-bold">
-                            Relatórios
-                        </h2>
-
-                    </a>
-
-                    <!-- Estoque -->
-                    <a href="{{ route('estoque.index') }}"
-                        class="bg-teal-500 hover:bg-teal-600 text-white rounded-xl p-6 text-center shadow-lg transition">
-
-                        <div class="text-5xl mb-4">📦</div>
-
-                        <h2 class="text-xl font-bold">
-                            Estoque
-                        </h2>
-
-                    </a>
-
-                </div>
-
-                <div class="mt-10">
-                    <h2 class="text-xl font-bold mb-4">Produtos abaixo do estoque mínimo</h2>
-
-                    @if($produtosAbaixoMinimo->isEmpty())
-                        <p class="text-gray-600">Nenhum produto está abaixo do estoque mínimo.</p>
-                    @else
-                        <div class="space-y-3">
-                            @foreach($produtosAbaixoMinimo as $produto)
-                                <div class="border border-red-200 bg-red-50 rounded-lg p-4">
-                                    <div class="flex justify-between items-center gap-4">
-                                        <div>
-                                            <strong>{{ $produto->nome }}</strong>
-                                            <span class="text-gray-500"> | Estoque atual: {{ $produto->estoqueDisponivel() }}</span>
-                                        </div>
-                                        <span class="px-2 py-1 rounded text-sm font-medium bg-red-100 text-red-700">
-                                            Abaixo do mínimo
-                                        </span>
-                                    </div>
-                                    <div class="mt-2 text-sm text-gray-600">
-                                        Estoque mínimo: {{ $produto->estoque_minimo ?? 0 }}
-                                    </div>
-                                </div>
-                            @endforeach
+                <div class="rounded-[26px] bg-[#0d5b5d] px-6 py-7 shadow-[0_12px_30px_rgba(13,91,93,0.18)] lg:px-8">
+                    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-[#ecf8f7]">Olá, gestor</p>
+                            <h1 class="mt-2 max-w-xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-[3.2rem]">
+                                Controle de estoque em<br class="hidden lg:block"> tempo real
+                            </h1>
+                            <p class="mt-4 max-w-lg text-sm leading-6 text-[#d7eeea] sm:text-base">
+                                Acompanhe validade, alertas e produtos em um único painel.
+                            </p>
                         </div>
-                    @endif
+
+                        <div class="flex flex-wrap items-center gap-3 self-start lg:self-auto">
+                            <span class="rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-[#f2fffb] backdrop-blur-sm">
+                                Estoque saudável
+                            </span>
+                            <span class="rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-[#f2fffb] backdrop-blur-sm">
+                                1 lote(s) com saldo
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mt-10">
-                    <h2 class="text-xl font-bold mb-4">Alertas de validade</h2>
-
-                    @if($alertas->isEmpty())
-                        <p class="text-gray-600">Nenhum lote com validade próxima ou vencida.</p>
-                    @else
-                        <div class="space-y-3">
-                            @foreach($alertas as $alerta)
-                                @php
-                                    $situacao = $alerta->situacaoValidade();
-                                    $badge = $situacao === 'Vencido'
-                                        ? 'bg-red-100 text-red-700'
-                                        : 'bg-yellow-100 text-yellow-700';
-                                @endphp
-                                <div class="border rounded-lg p-4 {{ $situacao === 'Vencido' ? 'border-red-200' : 'border-yellow-200' }}">
-                                    <div class="flex justify-between items-center gap-4">
-                                        <div>
-                                            <strong>{{ $alerta->produto->nome ?? 'Produto' }}</strong>
-                                            <span class="text-gray-500"> | Lote {{ $alerta->numero_lote }}</span>
-                                        </div>
-                                        <span class="px-2 py-1 rounded text-sm font-medium {{ $badge }}">
-                                            {{ $situacao }}
-                                        </span>
-                                    </div>
-                                    <div class="mt-2 text-sm text-gray-600">
-                                        Quantidade: {{ $alerta->saldoDisponivel() }}
-                                        | Validade: {{ $alerta->data_validade }}
-                                        | {{ $alerta->textoValidade() }}
-                                    </div>
-                                </div>
-                            @endforeach
+                <div class="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
+                    <div class="rounded-[24px] bg-white p-6 shadow-sm ring-1 ring-black/5">
+                        <div class="mb-5 flex items-center justify-between">
+                            <h3 class="text-2xl font-black text-[#1d1d1d]">Produtos abaixo do mínimo</h3>
+                            <span class="rounded-full bg-[#edf7f6] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-[#0d5b5d]">
+                                {{ count($produtosAbaixoMinimo) }} alertas
+                            </span>
                         </div>
-                    @endif
+
+                        @if($produtosAbaixoMinimo->isEmpty())
+                            <p class="text-sm text-[#6b7280]">Nenhum produto está abaixo do estoque mínimo.</p>
+                        @else
+                            <div class="space-y-3">
+                                @foreach($produtosAbaixoMinimo as $produto)
+                                    <div class="rounded-2xl border border-[#f1d7db] bg-[#fff5f7] p-4">
+                                        <div class="flex items-center justify-between gap-4">
+                                            <div>
+                                                <strong class="block text-base font-bold text-[#1d1d1d]">{{ $produto->nome }}</strong>
+                                                <span class="text-sm text-[#6b7280]">Estoque atual: {{ $produto->estoqueDisponivel() }}</span>
+                                            </div>
+                                            <span class="rounded-full bg-[#f7dfe6] px-2.5 py-1 text-xs font-bold text-[#b1445a]">
+                                                Abaixo do mínimo
+                                            </span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="rounded-[24px] bg-white p-6 shadow-sm ring-1 ring-black/5">
+                        <div class="mb-5 flex items-center justify-between">
+                            <h3 class="text-2xl font-black text-[#1d1d1d]">Alertas</h3>
+                            <span class="rounded-full bg-[#eef5ff] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-[#3d7adf]">
+                                {{ $alertas->count() }} itens
+                            </span>
+                        </div>
+
+                        @if($alertas->isEmpty())
+                            <p class="text-sm text-[#6b7280]">Nenhum lote com validade próxima ou vencida.</p>
+                        @else
+                            <div class="space-y-3">
+                                @foreach($alertas as $alerta)
+                                    @php
+                                        $situacao = $alerta->situacaoValidade();
+                                        $badge = $situacao === 'Vencido'
+                                            ? 'bg-[#f8dfe4] text-[#b1445a]'
+                                            : 'bg-[#fdf1d7] text-[#b67a14]';
+                                    @endphp
+                                    <div class="rounded-2xl border border-[#edf0f2] bg-[#f8fafb] p-4">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div>
+                                                <strong class="block text-base font-bold text-[#1d1d1d]">{{ $alerta->produto->nome ?? 'Produto' }}</strong>
+                                                <span class="text-sm text-[#6b7280]">Lote {{ $alerta->numero_lote }}</span>
+                                            </div>
+                                            <span class="rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] {{ $badge }}">
+                                                {{ $situacao }}
+                                            </span>
+                                        </div>
+                                        <div class="mt-2 text-xs text-[#5e5e5e]">
+                                            Validade: {{ $alerta->data_validade }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
     </div>
-
 </x-app-layout>

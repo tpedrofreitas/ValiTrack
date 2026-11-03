@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProdutoController as ProdutoApiController;
 use App\Http\Controllers\Api\FornecedorController as FornecedorApiController;
 use App\Http\Controllers\Api\EstoqueController as EstoqueApiController;
 use App\Http\Controllers\Api\LoteController as LoteApiController;
+use App\Http\Controllers\Api\SaidaController as SaidaApiController;
 
 Route::prefix('v1')->middleware('api')->group(function () {
     Route::get('categorias', [CategoriaApiController::class, 'index']);
@@ -23,6 +24,9 @@ Route::prefix('v1')->middleware('api')->group(function () {
 
     // Lotes (entrada de estoque com validade)
     Route::post('produtos/{id}/lotes', [LoteApiController::class, 'store']);
+
+    // Saídas de estoque
+    Route::post('produtos/{id}/saidas', [SaidaApiController::class, 'store']);
 
     Route::get('fornecedores', [FornecedorApiController::class, 'index']);
     Route::get('fornecedores/{id}', [FornecedorApiController::class, 'show']);
@@ -51,6 +55,9 @@ Route::middleware('api')->group(function () {
 
     // Lotes (sem versão)
     Route::post('produtos/{id}/lotes', [LoteApiController::class, 'store']);
+
+    // Saídas (sem versão)
+    Route::post('produtos/{id}/saidas', [SaidaApiController::class, 'store']);
 
     Route::get('fornecedores', [FornecedorApiController::class, 'index']);
     Route::get('fornecedores/{id}', [FornecedorApiController::class, 'show']);
