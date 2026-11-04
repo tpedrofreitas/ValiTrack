@@ -68,4 +68,5 @@ Route::middleware('api')->group(function () {
     // Estoque (sem versão)
     Route::get('estoque', [EstoqueApiController::class, 'index']);
     Route::get('estoque/{id}', [EstoqueApiController::class, 'show']);
+    //kkkkkkkkkkkk
 });
