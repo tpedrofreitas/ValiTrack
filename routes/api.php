@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FornecedorController as FornecedorApiController;
 use App\Http\Controllers\Api\EstoqueController as EstoqueApiController;
 use App\Http\Controllers\Api\LoteController as LoteApiController;
 use App\Http\Controllers\Api\SaidaController as SaidaApiController;
+use App\Http\Controllers\Api\GtinController as GtinApiController;
 
 Route::prefix('v1')->middleware('api')->group(function () {
     Route::get('categorias', [CategoriaApiController::class, 'index']);
@@ -27,6 +28,9 @@ Route::prefix('v1')->middleware('api')->group(function () {
 
     // Saídas de estoque
     Route::post('produtos/{id}/saidas', [SaidaApiController::class, 'store']);
+
+    // Consulta de produto pelo código de barras (Open Food Facts)
+    Route::get('gtins/{codigo}', [GtinApiController::class, 'show']);
 
     Route::get('fornecedores', [FornecedorApiController::class, 'index']);
     Route::get('fornecedores/{id}', [FornecedorApiController::class, 'show']);
@@ -59,6 +63,9 @@ Route::middleware('api')->group(function () {
     // Saídas (sem versão)
     Route::post('produtos/{id}/saidas', [SaidaApiController::class, 'store']);
 
+    // Consulta por código de barras (sem versão)
+    Route::get('produtos/codigo/{codigo}', [GtinApiController::class, 'show']);
+
     Route::get('fornecedores', [FornecedorApiController::class, 'index']);
     Route::get('fornecedores/{id}', [FornecedorApiController::class, 'show']);
     Route::post('fornecedores', [FornecedorApiController::class, 'store']);
@@ -68,5 +75,4 @@ Route::middleware('api')->group(function () {
     // Estoque (sem versão)
     Route::get('estoque', [EstoqueApiController::class, 'index']);
     Route::get('estoque/{id}', [EstoqueApiController::class, 'show']);
-    //kkkkkkkkkkkk
 });

@@ -35,4 +35,6 @@ return [
         ],
     ],
 
+        'cosmos' => [    'url'   => env('COSMOS_URL', 'https://cosmos.bluesoft.com.br/api'),    'token' => env('COSMOS_TOKEN'),],
+
 ];
